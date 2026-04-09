@@ -1,1 +1,7 @@
 *.mp3
+*.flac
+*.wav
+*.ogg
+*.m4a
+playlist.csv
+erreurs.txt
