@@ -41,6 +41,7 @@ MP3 files are saved to `~/BACKUP/Spotify/` by default. Failed downloads are logg
 ## Output
 
 Each track is downloaded with:
+
 - embedded cover art
 - title and artist metadata
 - 320kbps quality (best available)
