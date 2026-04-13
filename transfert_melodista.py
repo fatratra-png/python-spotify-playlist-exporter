@@ -1,7 +1,10 @@
-import os
 import glob
+import os
 import time
+
 import requests
+
+# Hello, you can change the values by yours
 
 IPHONE_URL = "http://192.168.1.73/upload"
 MUSIC_DIR = os.path.expanduser("~/BACKUP_FATRATRA/Spotify")
@@ -37,7 +40,7 @@ for i, filepath in enumerate(remaining, 1):
                 response = requests.post(
                     IPHONE_URL,
                     files={"files[]": (filename, f, "audio/mpeg")},
-                    timeout=60
+                    timeout=60,
                 )
             if response.status_code in (200, 201, 204):
                 print(f"  ✓ OK")
@@ -46,9 +49,13 @@ for i, filepath in enumerate(remaining, 1):
                 success = True
                 break
             else:
-                print(f"  ✗ Erreur HTTP {response.status_code}, retry {retries+1}/{MAX_RETRIES}")
+                print(
+                    f"  ✗ Erreur HTTP {response.status_code}, retry {retries + 1}/{MAX_RETRIES}"
+                )
         except Exception as e:
-            print(f"  ✗ Connexion perdue ({e}), retry dans {RETRY_DELAY}s... ({retries+1}/{MAX_RETRIES})")
+            print(
+                f"  ✗ Connexion perdue ({e}), retry dans {RETRY_DELAY}s... ({retries + 1}/{MAX_RETRIES})"
+            )
             time.sleep(RETRY_DELAY)
 
         retries += 1
