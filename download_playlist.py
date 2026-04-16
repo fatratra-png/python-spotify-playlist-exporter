@@ -46,8 +46,6 @@ def find_column(headers: list[str], candidates: list[str]) -> str | None:
             return candidate
     return None
 
-os.makedirs(OUTPUT_DIR, exist_ok=True)
-
 with open(CSV_FILE, newline='', encoding='utf-8') as f:
     reader = csv.DictReader(f)
     headers = reader.fieldnames or []
