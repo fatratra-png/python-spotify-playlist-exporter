@@ -23,7 +23,9 @@ import sys
 import os
 
 CSV_FILE = os.path.expanduser("./playlist.csv")
-OUTPUT_DIR = os.path.expanduser("~/BACKUP_FATRATRA/Spotify")
+# Create a directory for downloaded music
+os.makedirs(os.path.expanduser("~/Spotify"), exist_ok=True)
+OUTPUT_DIR = os.path.expanduser("~/Spotify")
 ERRORS_FILE = os.path.join(OUTPUT_DIR, "erreurs.txt")
 
 TITLE_COLUMNS = [
