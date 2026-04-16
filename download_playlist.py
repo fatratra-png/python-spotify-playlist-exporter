@@ -22,17 +22,56 @@ import subprocess
 import sys
 import os
 
-CSV_FILE = os.path.expanduser("~/Téléchargements/playlist.csv")
-#If you cloned my repo,use your own path to the csv file, or move the csv file to the path above and rename it to playlist.csv
-#Use Exportify to export your Spotify playlist to a csv file, then move it to the path above and rename it to playlist.csv(yeah better to use an short and useful name), or change the CSV_FILE variable to point to your csv file. The csv file should have two columns: "Nom du titre" and "Nom(s) de l'artiste", which correspond to the title of the track and the name of the artist(s) respectively.
+CSV_FILE = os.path.expanduser("./playlist.csv")
 OUTPUT_DIR = os.path.expanduser("~/BACKUP_FATRATRA/Spotify")
 ERRORS_FILE = os.path.join(OUTPUT_DIR, "erreurs.txt")
+
+TITLE_COLUMNS = [
+    "Nom du titre",
+    "Track Name",
+    "Title",
+    "Titel",
+    "Nombre de la canción",
+    "Titolo",
+    "Título",
+    "Название",
+    "歌曲名称",
+    "，曲名",
+]
+
+ARTIST_COLUMNS = [
+    "Nom(s) de l'artiste",
+    "Artist Name(s)",
+    "Artist",
+    "Künstler",
+    "Nombre(s) del artista",
+    "Artista",
+    "Исполнитель",
+    "歌手",
+    "アーティスト",
+]
+
+def find_column(headers: list[str], candidates: list[str]) -> str | None:
+    for candidate in candidates:
+        if candidate in headers:
+            return candidate
+    return None
 
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
 with open(CSV_FILE, newline='', encoding='utf-8') as f:
     reader = csv.DictReader(f)
-    tracks = [(row["Nom du titre"], row["Nom(s) de l'artiste"]) for row in reader]
+    headers = reader.fieldnames or []
+
+    title_col = find_column(headers, TITLE_COLUMNS)
+    artist_col = find_column(headers, ARTIST_COLUMNS)
+
+    if not title_col or not artist_col:
+        print(f"Erreur: Colonnes non trouvées dans le CSV.")
+        print(f"Colonnes disponibles: {headers}")
+        sys.exit(1)
+
+    tracks = [(row[title_col], row[artist_col]) for row in reader]
 
 print(f"✓ {len(tracks)} titres trouvés dans la playlist\n")
 
