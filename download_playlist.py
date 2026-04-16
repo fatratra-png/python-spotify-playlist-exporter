@@ -31,26 +31,13 @@ ERRORS_FILE = os.path.join(OUTPUT_DIR, "erreurs.txt")
 TITLE_COLUMNS = [
     "Nom du titre",
     "Track Name",
-    "Title",
-    "Titel",
-    "Nombre de la canción",
-    "Titolo",
-    "Título",
-    "Название",
-    "歌曲名称",
-    "，曲名",
+    "Title"
 ]
 
 ARTIST_COLUMNS = [
     "Nom(s) de l'artiste",
     "Artist Name(s)",
-    "Artist",
-    "Künstler",
-    "Nombre(s) del artista",
-    "Artista",
-    "Исполнитель",
-    "歌手",
-    "アーティスト",
+    "Artist"
 ]
 
 def find_column(headers: list[str], candidates: list[str]) -> str | None:
